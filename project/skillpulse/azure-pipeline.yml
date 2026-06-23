@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+      - main:
+
+pool:
+  name: 'SelfHostedPool'
+
+stages:
+  - stage: Code
+    displayName: 'Code'
+    jobs: 
+      - job: validate
+        steps:
+          - checkout: self
+
+  - stage: Build
+    displayName: 'Build'
+    jobs:
+      - job: Build
+        steps:
+          - checkout: self
+          - script: docker compose build
